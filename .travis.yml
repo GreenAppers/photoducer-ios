@@ -1,0 +1,51 @@
+os: osx
+language: objective-c
+osx_image: xcode9.3
+
+cache:
+  directories:
+  - vendor/bundle
+  - "$HOME/flutter/"
+  - "$HOME/google-cloud-sdk/"
+  - "$HOME/.pub-cache"
+
+before_install:
+  - echo $TRAVIS_OS_NAME
+  - echo ${HOME}
+  - echo ${TRAVIS_BUILD_DIR}
+  - brew update 
+  - brew install --HEAD usbmuxd 
+  - brew unlink usbmuxd 
+  - brew link usbmuxd 
+  - brew install --HEAD libimobiledevice 
+  - brew install ideviceinstaller 
+  - brew install ios-deploy 
+  - gem install fastlane
+  - if [ ! -d "${HOME}/flutter/bin" ]; then rm -rf ${HOME}/flutter; git clone https://github.com/flutter/flutter.git -b stable --depth 1 ${HOME}/flutter; fi
+  - cd photoducer
+  - ${HOME}/flutter/bin/flutter doctor
+  - ${HOME}/flutter/bin/flutter packages get
+  - cd ..
+
+before_script:
+  - openssl aes-256-cbc -k $ENCRYPTION_PASSWORD -in research-storage-account.json.enc -d -a -out research-storage-account.json
+  - gcloud version || true
+  - if [ ! -d "$HOME/google-cloud-sdk/bin" ]; then rm -rf $HOME/google-cloud-sdk; export CLOUDSDK_CORE_DISABLE_PROMPTS=1; curl https://sdk.cloud.google.com | bash; fi
+  - source $HOME/google-cloud-sdk/path.bash.inc
+  - gcloud version
+  - gcloud auth activate-service-account --key-file=research-storage-account.json
+
+script:
+  - cd photoducer
+  - gsutil cp gs://greenappers/model/yolov2_tiny.* assets
+  - touch assets/edges2shoes.tflite
+  - touch assets/edges2shoes.txt
+  - ${HOME}/flutter/bin/flutter -v build apk --release
+  - fastlane submit_testflight
+
+after_success:
+  - echo "success"
+
+after_failure:
+  - echo "failure"
+

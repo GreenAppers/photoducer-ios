@@ -1,0 +1,3 @@
+[submodule "photoducer"]
+	path = photoducer
+	url = https://github.com/GreenAppers/photoducer
