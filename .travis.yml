@@ -1,6 +1,6 @@
 os: osx
 language: objective-c
-osx_image: xcode9.3
+osx_image: xcode10.1
 
 cache:
   directories:
@@ -43,6 +43,7 @@ script:
   - touch assets/edges2shoes.tflite
   - touch assets/edges2shoes.txt
   - ${HOME}/flutter/bin/flutter -v build ios --release --no-codesign
+  - cd ..
   - fastlane submit_testflight
 
 after_success:
