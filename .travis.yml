@@ -13,13 +13,13 @@ before_install:
   - echo $TRAVIS_OS_NAME
   - echo ${HOME}
   - echo ${TRAVIS_BUILD_DIR}
-  - brew update 
-  - brew install --HEAD usbmuxd 
-  - brew unlink usbmuxd 
-  - brew link usbmuxd 
-  - brew install --HEAD libimobiledevice 
-  - brew install ideviceinstaller 
-  - brew install ios-deploy 
+  - brew update
+  - brew install --HEAD usbmuxd
+  - brew unlink usbmuxd
+  - brew link usbmuxd
+  - brew install --HEAD libimobiledevice
+  - brew install ideviceinstaller
+  - brew install ios-deploy
   - gem install fastlane
   - if [ ! -d "${HOME}/flutter/bin" ]; then rm -rf ${HOME}/flutter; git clone https://github.com/flutter/flutter.git -b stable --depth 1 ${HOME}/flutter; fi
   - cd photoducer
@@ -40,7 +40,7 @@ script:
   - gsutil cp gs://greenappers/model/yolov2_tiny.* assets
   - touch assets/edges2shoes.tflite
   - touch assets/edges2shoes.txt
-  - ${HOME}/flutter/bin/flutter -v build apk --release
+  - ${HOME}/flutter/bin/flutter -v build ios --release --no-codesign
   - fastlane submit_testflight
 
 after_success:
@@ -49,3 +49,9 @@ after_success:
 after_failure:
   - echo "failure"
 
+env:
+  global:
+  - secure: KXebKVj/jG30lsIFikrSPuDtN6UuocB5/XSXQ2RC88D6V7xqQAAZ8L9XMNjaRg1/JbS/4USHsLym/AqPKq7shvLMc+SgSZvCrC1tTKNUcE5FDSgsh+BbStuzYuaEzngtB6JXxAK9eJeUKCelmLimUh1A3V4VDQd3rC6wZJKpqtU4T+ImSuXS7yN7iajW4auEjcSwzg1Odeyi3+YZCUk+WmIh9gqiJAYysW91aACs2Y7rAd7Q/sIdwLpwMXhf/QQzTtgh9JLd+JdN7swk1QO7mHRjXyvm0zjHBJuNJRHpQFjNXYNjrtVzqhQXRT0axz61UdRuRXiOOdTq9nGctUS1nrQfVvz7uve6CyVEVswIMW2hYnlw5xtAMcz85hmiZOT+S0bKDJFqb3U47j8O454NOXQYOD79m+f77BI67dtBZO0n84iaG1HL6Tl/0tcMIrGk8Cd3BvdSErP3YdlEYfHpuDWBMZqQh7OSdUK5BFwqgMGuBwsMza74weoVKyDBCwTksADoNgm8ajPIRh3gPuykIAtHNgnjQfmf8hZRXG36VOqhjvUodyYeANVpokFTxZXIIWyleI5SKm63Nz8t8K7BahVYFKw3WqFVtx5EHCjfLc2RUEjUcYB3hd3pUCa3nfQ5WWioeSIjf0ad26v5/aliHSo+kLOSYrPoNk/QMff4LRs=
+  - secure: IR7p+99bTJFm8rVTvOKfI00xypqt1ArNcYZnvTaaaIdBFbeoAtkflT9wCD99M7dkUsa6s+qlc5gOEOQkQjmNBL8iU0E4LVOCN/5YwM55U/R+k+quz2+9scIh8VPq/Ki6EA41BRtF8fTZRjj2NuAI3WJb96pMgcS2yVEivVNNkbrjBUNy2ZKO11XI1V/4yv0bBrUapW/xUuI6ZNlk4gq3qtKsmm7VCGK14/OrNULGWi7ky2oNRZzLGIaFgIqEefwDqDlv1Fq906y62j8WjMy1i6azY8NUDDcM3EOPkfbO5RbFxSzKLzlOFNiIaOmUu6fzt3PE2EU61OfvLy8CxbfFnV2mLxa2EmfQgrdWKE2MDkMcA6DXH0WcC7TLAFWFlgQiwNW97hPp7zvU/jEzHQh3pbN0Npk5DHlwp0dKXwZEryP3VmLeeaN5RLmnsL++nIUuBkmYZ7zKDYmxpBzo2HCO85UJ6ds2UpEywM6v9qJCglBf74M5UkpPzWiDkfhlsV4UZDsQi/kEMX9G8nVp4S/2lKYecBMBqspajm6Yp07CrWUQljzanv9aEh6LaR/eCy9/m11W2D01u4y0dksqaiZ/ZcYj4tfQfFc09pHZWVEcH624lrBBBjUyiSDL11HGZzrKe40O4dPGToZfPAZqD66JbXO8ZKTvwE98N8G49dc7O/Q=
+  - secure: mKTUNBsjVt/51YxLzWR9EKGtnhWZL7kYX+dFspJb7orBQUCKLGTGsauoetqnc8IG95OlmA9XVxvQ0HUTfLgu1WTq7tKTflgyhLgSTGUP6i4K9ijAfkKWNUuJ3it16L6XSS7noPls0aPzqCJuXfdyNRnhlVGjPObltG09eDc5J+1niMCyAAw/GJpskg1RINcvsornL33ykxG4aqAKWTUAYlUJGxwED/0mN1fjAjDHEI/UhNgZxjrrXFWlym8gLziZ7htmYKWzlsLxcf7SARU8LDhlr53KNRef75ggl3vDofOxxR8cV6tWF3kRoKv922iFU4dIBz/JXup7t7VLFdV3J9SzBTRDeAY/VzjSwu6oKZa2WmNTZepM61FuTa/mXDnvmpB7xSP2SQpgvf9dvPyHBNj3myvaviE95tF8c9FsPTaSj/1cAebs/zv611OJga4043CREB+rUt+Ge3iklmNHQMa8FxhjIFNWkTp/w3yOy7xIuy7TG4+bkxTvOXxQPJ0iRSah9adEKv96WjG6AqR/KvmWev95fYbN8y21EYLTn8Im9ZwleRKGVy2ItBs/GKa+njNhT6HWG13ewdWk2jTjGhz6WtprqeIU7wy0BeaPE1EWBCN7soXMx2YA47pqgQfZsSBhVVIaIgjb8Dbpyky8uLraQWWxRZmYWSeorJggbFY=
+  - secure: jqMkSs9ZY/fx/cd625VxiJWSDSVgN5X0s5Dp/yuoDtI3sbcR4lL2klLGfTlM4FlzXAzzkagN/NSXh+ZJbLHoPkqPXS1GO4xYTm9drefrgLZMSigfNg/+DetFN1V3onN+RwkAOCccI2fRx4lrfcv0fKpwYM+Tg78FZoCBmV8SV4eWJwTDtShvKipT7sQmLpCCCL3B2wHW1xoXAzqtoACxNXQwACHOhCYdhwud7G4m1LD4hHsrAg2qcU9miXBbI3tlE8tWyrL3rq+IneuAYRdkqgBC6CGXkQf3M0Ue77AH6jTCQLbo7kpThHiZKhpqV1KPv8LS0/VnBpvlFHuGljTMUcwgeaYvqEPW7Zlexuw8eIPbv5UEClK9qXYz8jrEasRMirkcRSILYssfu8GYrGmg/0YZGj5EZDJaCFLwsEmBop1jIz4Mdw1TR2DG/k9IVMzYQNb8spYWi3LlbXumd2M5xOclqD6WMieda4mq9Ace7uLsywDMA8c1PeRKz3jQY3iNgSNH6wHS3EEg3rYgU6Md1rfNKS8jeyRKuuKVDIxI8AzvtjU2pK8pXsRqqIfwAkR9yOWfCM2+/W9nYMMA/4hQQZC8+/0YwJL3og1ujsYE0jtRzSNjLXGjmtKn5CgKlRnE5AXIymB5OrcrXyfvFuaJxVyafNo1NLqRY0AwyXienGE=
