@@ -26,7 +26,9 @@ before_install:
   - cd photoducer
   - ${HOME}/flutter/bin/flutter doctor
   - ${HOME}/flutter/bin/flutter packages get
-  - cd ..
+  - cd ios
+  - pod repo update
+  - cd ../..
 
 before_script:
   - openssl aes-256-cbc -k $CERTIFICATE_PASSWORD -in fastlane/Certificates/distribution.p12.enc -d -a -out fastlane/Certificates/distribution.p12
