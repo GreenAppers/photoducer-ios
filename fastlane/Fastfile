@@ -7,6 +7,7 @@ lane :submit_testflight do
   cert_id = "Y6TW532U2V"
   
   import_certificate(
+    keychain_name: "fastlane_tmp_keychain",
     certificate_path: "fastlane/Certificates/distribution.p12",
     certificate_password: ENV["KEY_PASSWORD"]
   )
