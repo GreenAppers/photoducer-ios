@@ -32,8 +32,8 @@ before_install:
 
 before_script:
   - openssl aes-256-cbc -k $CERTIFICATE_PASSWORD -in fastlane/Certificates/distribution.p12.enc -d -a -out fastlane/Certificates/distribution.p12
+  - openssl aes-256-cbc -k $CERTIFICATE_PASSWORD -in fastlane_session.enc -d -a -out fastlane_session
   - openssl aes-256-cbc -k $ENCRYPTION_PASSWORD -in research-storage-account.json.enc -d -a -out research-storage-account.json
-  - openssl aes-256-cbc -k $ENCRYPTION_PASSWORD -in fastlane_session.enc -d -a -out fastlane_session
   - export FASTLANE_SESSION=`cat fastlane_session`
   - gcloud version || true
   - if [ ! -d "$HOME/google-cloud-sdk/bin" ]; then rm -rf $HOME/google-cloud-sdk; export CLOUDSDK_CORE_DISABLE_PROMPTS=1; curl https://sdk.cloud.google.com | bash; fi
