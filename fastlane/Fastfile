@@ -1,25 +1,14 @@
+setup_travis
+
 desc "Build and submit to TestFlight"
 lane :submit_testflight do
   
   team_id = "9S723G94YQ"
   cert_id = "Y6TW532U2V"
-  keychain_name = "testflight_certs"
-  keychain_pw = SecureRandom.base64
-
-  create_keychain(
-    name: keychain_name,
-    password: keychain_pw,
-    default_keychain: true,
-    unlock: true,
-    timeout: 3600,
-    lock_when_sleeps: true,
-  )
   
   import_certificate(
     certificate_path: "fastlane/Certificates/distribution.p12",
-    certificate_password: ENV["KEY_PASSWORD"],
-    keychain_name: keychain_name,
-    keychain_password: keychain_pw
+    certificate_password: ENV["KEY_PASSWORD"]
   )
  
   sigh(
