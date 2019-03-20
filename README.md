@@ -1,4 +1,4 @@
-## Photoducer for iOS 1.0.12
+## Photoducer for iOS 1.0.13
 <img style="float:left" src="icon.png" />
 
 [![Build Status](https://travis-ci.org/GreenAppers/photoducer-ios.svg?branch=master)](https://travis-ci.org/GreenAppers/photoducer-ios)

@@ -30,8 +30,8 @@ lane :submit_testflight do
   )
   
   build_ios_app(
-    export_method: 'app-store'
-    project: "photoducer/ios/Runner.xcodeproj",
+    export_method: 'app-store',
+    workspace: "photoducer/ios/Runner.xcworkspace",
     configuration: "Release",
     output_name: "Photoducer.ipa",
     include_bitcode: false,
